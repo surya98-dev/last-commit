@@ -4,7 +4,9 @@ import { AuthProvider } from "../context/AuthContext";
 function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
-      <Component {...pageProps} />
+      <div className="min-h-screen bg-main">
+        <Component {...pageProps} />
+      </div>
     </AuthProvider>
   );
 }
