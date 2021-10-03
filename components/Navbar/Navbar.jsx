@@ -36,15 +36,15 @@ export default function Navbar({ isAuthenticated, handleLogout }) {
     },
     {
       name: "Stock In",
-      link: "/transaction?trx=stock-in",
+      link: "/transaction/stock-in",
     },
     {
       name: "Stock Out",
-      link: "/transaction?trx=stock-out",
+      link: "/transaction/stock-out",
     },
     {
       name: "Audit",
-      link: "/transaction?trx=audit",
+      link: "/transaction/audit",
     },
   ];
 
