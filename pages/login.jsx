@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { LoginRegisterForm } from "../components";
-import { useHistory } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useRouter } from "next/router";
 
 const Login = () => {
   const [error, setError] = useState("");
@@ -14,16 +14,17 @@ const Login = () => {
     confirmPassword: "",
   });
   const { signup, login } = useAuth();
-  const history = useHistory();
+  const router = useRouter();
 
   const handleSignin = async (e) => {
     e.preventDefault();
     try {
       setError("");
       setLoading(true);
-      await login(fields.email, fields.password);
-
-      history.push("/");
+      const res = await login(fields.email, fields.password);
+      if (res) {
+        router.push("/");
+      }
     } catch (err) {
       setError(err.message);
     }
@@ -42,14 +43,13 @@ const Login = () => {
         setError("");
         setLoading(true);
         await signup(fields);
-
-        history.push("/");
       } catch (err) {
         setError(err.message);
       }
     }
 
     setLoading(false);
+    router.push("/");
   };
 
   const handleInputChange = (e) => {

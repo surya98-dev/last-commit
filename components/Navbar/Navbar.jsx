@@ -137,13 +137,15 @@ export default function Navbar({ isAuthenticated, handleLogout }) {
                               Your Profile
                             </a>
                           )} */}
-                        <a
-                          className={classNames(
-                            "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100",
-                          )}
-                        >
-                          <Link href="/update-profile">Update Profile</Link>
-                        </a>
+                        <Link href="/update-profile">
+                          <a
+                            className={classNames(
+                              "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100",
+                            )}
+                          >
+                            Update Profile
+                          </a>
+                        </Link>
                       </Menu.Item>
 
                       <Menu.Item>
@@ -158,14 +160,16 @@ export default function Navbar({ isAuthenticated, handleLogout }) {
                               Sign out
                             </a>
                           )} */}
-                        <a
-                          className={classNames(
-                            "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100",
-                          )}
-                          onClick={handleLogout}
-                        >
-                          <Link href="/">Sign out</Link>
-                        </a>
+                        <Link href="/">
+                          <a
+                            className={classNames(
+                              "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100",
+                            )}
+                            onClick={handleLogout}
+                          >
+                            Sign out
+                          </a>
+                        </Link>
                       </Menu.Item>
                     </Menu.Items>
                   </Transition>

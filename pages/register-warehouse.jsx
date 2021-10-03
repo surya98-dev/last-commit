@@ -132,7 +132,7 @@ const RegisterWarehousePage = () => {
           Create or Join a Warehouse
         </h2>
         <Tab.Group>
-          <Tab.List className="flex p-1 space-x-1 bg-indigo-600 rounded-xl ">
+          <Tab.List className="flex p-1 space-x-1 bg-blue-600 rounded-xl ">
             <Tab
               className={({ selected }) =>
                 classNames(
@@ -191,7 +191,7 @@ const RegisterWarehousePage = () => {
                   className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md   ${
                     !canCreate
                       ? "bg-gray-600 text-black cursor-not-allowed"
-                      : "bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-white"
+                      : "bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-white"
                   } `}
                 >
                   Create a Warehouse
@@ -241,7 +241,7 @@ const RegisterWarehousePage = () => {
                     className={` group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md  mt-1 ${
                       !selected
                         ? "bg-gray-600 text-black cursor-not-allowed"
-                        : "bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-white"
+                        : "bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-white"
                     } `}
                   >
                     Join a warehouse
