@@ -28,6 +28,9 @@ module.exports = {
       lime: colors.lime,
       violet: colors.violet,
     },
+    fontFamily: {
+      sans: ["Roboto", "sans-serif"],
+    },
   },
   variants: {
     extend: {},

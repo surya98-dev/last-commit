@@ -5,9 +5,9 @@ const Card = (props) => {
   return (
     <div>
       <div
-        className={`flex-1 ${colorbg} text-gray-700 rounded-lg py-3 px-5 shadow-sm w-auto`}
+        className={`flex-1 ${colorbg} text-gray-700 rounded-lg py-3 px-5 shadow-md w-48 h-28`}
       >
-        <span className=" text-sm py-2">{title}</span>
+        <span className="text-sm font-bold py-2">{title}</span>
         <div className="flex items-center">
           <span className="text-2xl flex font-black">{value_items}</span>
           <span className="px-2">items </span>
