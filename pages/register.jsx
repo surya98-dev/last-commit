@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { LoginRegisterForm } from "../components";
-import { useHistory } from "react-router-dom";
+import { useRouter } from "next/router";
 import { useAuth } from "../context/AuthContext";
+import { updateCurrentUser } from "@firebase/auth";
 
 const Register = () => {
   const [error, setError] = useState("");
@@ -13,8 +14,8 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
-  const { signup, login } = useAuth();
-  const history = useHistory();
+  const { signup, login, currentUser } = useAuth();
+  const router = useRouter();
 
   const handleSignin = async (e) => {
     e.preventDefault();
@@ -22,8 +23,7 @@ const Register = () => {
       setError("");
       setLoading(true);
       await login(fields.email, fields.password);
-
-      history.push("/");
+      router.push("/");
     } catch (err) {
       setError(err.message);
     }
@@ -43,7 +43,7 @@ const Register = () => {
         setLoading(true);
         await signup(fields);
 
-        history.push("/");
+        router.push("/");
       } catch (err) {
         setError(err.message);
       }
