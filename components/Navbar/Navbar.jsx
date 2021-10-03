@@ -77,9 +77,8 @@ export default function Navbar({ isAuthenticated, handleLogout }) {
                   <div className="w-28"></div>
                   {isAuthenticated &&
                     authNav.map((item, index) => (
-                      <Link href={item.link}>
+                      <Link key={index} href={item.link}>
                         <a
-                          key={index}
                           className={classNames(
                             item.link === current
                               ? "bg-gray-900 text-white"
@@ -174,9 +173,8 @@ export default function Navbar({ isAuthenticated, handleLogout }) {
               ) : (
                 publicNav.map((item, index) => {
                   return (
-                    <Link href={item.link}>
+                    <Link key={index} href={item.link}>
                       <a
-                        key={index}
                         className={classNames(
                           item.link === current
                             ? "bg-gray-900 text-white"
