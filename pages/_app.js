@@ -1,12 +1,13 @@
 import "tailwindcss/tailwind.css";
 import { AuthProvider } from "../context/AuthContext";
+import Layout from "../Layouts/Layout";
 
 function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
-      <div className="min-h-screen bg-main">
+      <Layout>
         <Component {...pageProps} />
-      </div>
+      </Layout>
     </AuthProvider>
   );
 }

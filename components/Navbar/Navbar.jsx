@@ -1,8 +1,10 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { useHistory } from "react-router-dom";
 import Link from "next/link";
+import Image from "next/image";
+import LogoHorizontal from "../../public/images/logo-horizontal-white.svg";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -10,6 +12,11 @@ function classNames(...classes) {
 
 export default function Navbar({ isAuthenticated, handleLogout }) {
   const history = useHistory();
+  const [current, setCurrent] = useState();
+
+  useEffect(() => {
+    setCurrent(window.location.pathname);
+  }, [window.location.pathname]);
   const publicNav = [
     {
       name: "Register",
@@ -47,12 +54,13 @@ export default function Navbar({ isAuthenticated, handleLogout }) {
         <div className="max-w-7xl mx-auto   ">
           <div className="relative flex items-center justify-between h-16">
             {/* Mobile menu button*/}
-            <img
-              src={"images/logo-vertical-white.svg"}
+            <Image
+              src={LogoHorizontal}
               onClick={() => {
                 history.push("/");
               }}
-              className="w-32 absolute cursor-pointer"
+              width="128"
+              className=" absolute cursor-pointer"
               alt=""
             />
             <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-center">
@@ -69,14 +77,18 @@ export default function Navbar({ isAuthenticated, handleLogout }) {
                   <div className="w-28"></div>
                   {isAuthenticated &&
                     authNav.map((item, index) => (
-                      <Link
-                        key={index}
-                        href={item.link}
-                        className={classNames(
-                          "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ",
-                        )}
-                      >
-                        {item.name}
+                      <Link href={item.link}>
+                        <a
+                          key={index}
+                          className={classNames(
+                            item.link === current
+                              ? "bg-gray-900 text-white"
+                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                            " px-3 py-2 rounded-md text-sm font-medium ",
+                          )}
+                        >
+                          {item.name}
+                        </a>
                       </Link>
                     ))}
                 </div>
@@ -114,7 +126,7 @@ export default function Navbar({ isAuthenticated, handleLogout }) {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <Menu.Item>
+                      <Menu.Item as="div">
                         {/* {({ active }) => (
                             <a
                               href="#"
@@ -126,12 +138,13 @@ export default function Navbar({ isAuthenticated, handleLogout }) {
                               Your Profile
                             </a>
                           )} */}
-                        <Link
-                          href="/update-profile"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        <a
+                          className={classNames(
+                            "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100",
+                          )}
                         >
-                          Update Profile
-                        </Link>
+                          <Link href="/update-profile">Update Profile</Link>
+                        </a>
                       </Menu.Item>
 
                       <Menu.Item>
@@ -146,13 +159,14 @@ export default function Navbar({ isAuthenticated, handleLogout }) {
                               Sign out
                             </a>
                           )} */}
-                        <Link
+                        <a
+                          className={classNames(
+                            "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100",
+                          )}
                           onClick={handleLogout}
-                          href="/"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         >
-                          Sign out
-                        </Link>
+                          <Link href="/">Sign out</Link>
+                        </a>
                       </Menu.Item>
                     </Menu.Items>
                   </Transition>
@@ -160,14 +174,18 @@ export default function Navbar({ isAuthenticated, handleLogout }) {
               ) : (
                 publicNav.map((item, index) => {
                   return (
-                    <Link
-                      key={index}
-                      href={item.link}
-                      className={classNames(
-                        "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ",
-                      )}
-                    >
-                      {item.name}
+                    <Link href={item.link}>
+                      <a
+                        key={index}
+                        className={classNames(
+                          item.link === current
+                            ? "bg-gray-900 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          " px-3 py-2 rounded-md text-sm font-medium ",
+                        )}
+                      >
+                        {item.name}
+                      </a>
                     </Link>
                   );
                 })
