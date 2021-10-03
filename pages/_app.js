@@ -1,10 +1,13 @@
 import "tailwindcss/tailwind.css";
 import { AuthProvider } from "../context/AuthContext";
+import Layout from "../Layouts/Layout";
 
 function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </AuthProvider>
   );
 }

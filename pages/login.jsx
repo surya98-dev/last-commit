@@ -3,7 +3,7 @@ import { LoginRegisterForm } from "../components";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-const Register = () => {
+const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [fields, setFields] = useState({
@@ -59,7 +59,7 @@ const Register = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-main px-4 sm:px-6 lg:px-8">
       <LoginRegisterForm
-        isSignup={true}
+        isSignup={false}
         fields={fields}
         handleInputChange={handleInputChange}
         handleSignin={handleSignin}
@@ -71,4 +71,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
