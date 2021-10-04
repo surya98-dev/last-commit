@@ -24,7 +24,6 @@ const RegisterWarehousePage = () => {
   const [notification, setNotification] = useState();
   const [openCreate, setOpenCreate] = useState(false);
   const [openJoin, setOpenJoin] = useState(false);
-  const [type, setType] = useState();
   const [searchForm, setSearchForm] = useState("");
 
   const { currentUser, setCurrentUser } = useAuth();
@@ -41,21 +40,28 @@ const RegisterWarehousePage = () => {
 
   useEffect(() => {
     setCanCreate(false);
+
     setLoading(true);
-    getWarehouses().then((warehouses) => setWarehouseData(warehouses.data));
+    getWarehouses().then((warehouses) => {
+      setWarehouseData(warehouses.data);
+    });
+
     setLoading(false);
   }, [getWarehouses]);
 
-  useEffect(() => {
-    if (openJoin || openCreate) {
-      setTimeout(() => {
-        console.log("redirect after 5s");
-        setOpenJoin(false);
-        setOpenCreate(false);
-        router.push("/dashboard");
-      }, 5000);
-    }
-  }, [openJoin, openCreate]);
+  //NEED TO CONFIGURE IF USER PRESS GO TO DASHBOARD, USEEFFECT BELOW NOT TRIGGERED
+
+  // useEffect(() => {
+  //   if (openJoin || openCreate) {
+  //     setTimeout(() => {
+  //       if (openJoin || openCreate) {
+  //         setOpenJoin(false);
+  //         setOpenCreate(false);
+  //         router.push("/dashboard");
+  //       }
+  //     }, 3000);
+  //   }
+  // }, [openJoin, openCreate]);
   const okButtonRef = useRef(null);
   const handleCreateWarehouse = (e) => {
     e.preventDefault();
@@ -74,6 +80,7 @@ const RegisterWarehousePage = () => {
         setCurrentUser({ ...currentUser, warehouseId: response.data.data.id });
       })
       .then(() => {
+        console.log(currentUser);
         setOpenCreate(true);
       });
   };
@@ -120,14 +127,17 @@ const RegisterWarehousePage = () => {
           } else {
             setNotification("Warehouse Name Already Taken");
           }
+        })
+        .catch((err) => {
+          console.log(err);
         });
     }
     setLoading(false);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-4">
-      <div className="max-w-md w-full  px-5 py-8 border-2 border-gray-800 rounded-md shadow-lg ">
+    <div className="min-h-screen flex items-center justify-center max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-4">
+      <div className="max-w-md w-full bg-white px-5 py-8 border-2 border-gray-800 rounded-md shadow-lg ">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 pb-4">
           Create or Join a Warehouse
         </h2>
@@ -318,7 +328,10 @@ const RegisterWarehousePage = () => {
                   <button
                     type="button"
                     className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={() => router.push("/dashboard")}
+                    onClick={() => {
+                      setOpenCreate(false);
+                      router.push("/dashboard");
+                    }}
                     ref={okButtonRef}
                   >
                     Redirect me to Dashboard
@@ -394,7 +407,10 @@ const RegisterWarehousePage = () => {
                   <button
                     type="button"
                     className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={() => router.push("/dashboard")}
+                    onClick={() => {
+                      setOpenJoin(false);
+                      router.push("/dashboard");
+                    }}
                     ref={okButtonRef}
                   >
                     Redirect me to Dashboard

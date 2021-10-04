@@ -49,9 +49,9 @@ export default function Navbar({ isAuthenticated, handleLogout }) {
   ];
 
   return (
-    <Disclosure as="nav" className="bg-dongker">
+    <Disclosure as="nav" className="bg-dongker w-full h-16 fixed ">
       <>
-        <div className="max-w-7xl mx-auto   ">
+        <div className="max-w-7xl mx-auto bg-dongker ">
           <div className="relative flex items-center justify-between h-16">
             {/* Mobile menu button*/}
             <Image
@@ -64,17 +64,17 @@ export default function Navbar({ isAuthenticated, handleLogout }) {
               alt=""
             />
             <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-center">
-              <div className="flex-shrink-0 flex items-center">
-                {/* <img
+              {/* <div className="flex-shrink-0 flex items-center"> */}
+              {/* <img
                     className="block lg:hidden h-8 w-auto"
                     src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
                     alt="Workflow"
                   /> */}
-              </div>
+              {/* </div> */}
 
-              <div className="hidden sm:block sm:ml-6">
+              <div className="hidden sm:block relative right-5 ">
                 <div className="flex space-x-4">
-                  <div className="w-28"></div>
+                  {/* <div className="w-28"></div> */}
                   {isAuthenticated &&
                     authNav.map((item, index) => (
                       <Link key={index} href={item.link}>
@@ -109,7 +109,7 @@ export default function Navbar({ isAuthenticated, handleLogout }) {
                     <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                       <span className="sr-only">Open user menu</span>
                       <img
-                        className="h-8 w-8 rounded-full"
+                        className="h-8 w-8 mr-2 rounded-full"
                         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                         alt=""
                       />

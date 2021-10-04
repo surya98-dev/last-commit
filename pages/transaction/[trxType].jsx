@@ -3,6 +3,7 @@ import { ItemPicker, TransactionMaker } from "../../components";
 import { useAuth } from "../../context/AuthContext";
 import api from "../../services/api";
 import { useRouter } from "next/router";
+import { getWarehouseId } from "../../services/getWarehouseId";
 
 const TransactionPage = () => {
   const [trx, setTrx] = useState("");
@@ -14,7 +15,7 @@ const TransactionPage = () => {
   const router = useRouter();
   const { trxType } = router.query;
 
-  const { currentUser } = useAuth();
+  const { currentUser, warehouseId } = useAuth();
 
   const querySwitch = useCallback((input) => {
     switch (input) {
@@ -34,18 +35,20 @@ const TransactionPage = () => {
   }, [querySwitch, trxType]);
 
   useEffect(() => {
-    const getAllItems = async () => {
-      const response = await api.get("/item", {
+    const getAllItems = async (whID) => {
+      const response = await api.get(`/item/${whID}`, {
         headers: {
           Authorization: "Bearer " + currentUser.accessToken,
         },
       });
       return response.data;
     };
-    getAllItems().then((data) => {
-      setItems(data.data);
-    });
-  }, [currentUser.accessToken]);
+    getWarehouseId(currentUser.uid, currentUser.accessToken)
+      .then((id) => getAllItems(id))
+      .then((res) => {
+        setItems(res.data);
+      });
+  }, []);
 
   const handleAddItemToCart = (id) => {
     const selected = items.filter((el) => el.id === id)[0];
@@ -102,12 +105,11 @@ const TransactionPage = () => {
     }
     setNote("");
     setCartItems([]);
-    console.log("submit");
   };
 
   return (
-    <div className="min-h-screen bg-white mx-auto max-w-screen-xl text-left p-3 flex flex-col ">
-      <h1 className="text-2xl font-semibold mb-4">Transaction / {trx}</h1>
+    <div className="min-h-screen bg-white mx-auto max-w-screen-xl text-left px-7 py-4 flex flex-col ">
+      <h1 className="text-2xl font-semibold mb-4 mt-16">Transaction / {trx}</h1>
 
       {/* <ListboxTransaction
         selected={selected}
@@ -143,7 +145,6 @@ const TransactionPage = () => {
             value={note}
             onChange={(e) => {
               setNote(e.target.value);
-              console.log(e.target.value);
             }}
             placeholder="Write note"
             className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none h-1/3 bg-gray-100 shadow  "

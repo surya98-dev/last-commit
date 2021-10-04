@@ -6,10 +6,10 @@ const Layout = ({ children }) => {
   const { logout, currentUser } = useAuth();
 
   return (
-    <div>
+    <>
       <Navbar isAuthenticated={!!currentUser} handleLogout={logout} />
-      {children}
-    </div>
+      <div className=" bg-main ">{children}</div>
+    </>
   );
 };
 

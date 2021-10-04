@@ -32,7 +32,6 @@ export const AuthProvider = ({ children }) => {
     });
   }, []);
   useEffect(() => {
-    console.log(currentUser);
     if (currentUser) {
       api
         .get(`/user/${currentUser.uid}`, {
