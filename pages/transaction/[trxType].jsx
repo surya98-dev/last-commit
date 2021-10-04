@@ -97,8 +97,17 @@ const TransactionPage = () => {
           transactionQuantity: quantity[el.itemName],
           note: note,
         };
-        transactionRequest(trx, el.id, data);
-        console.log(data);
+        const dataAudit = {
+          userId: currentUser.uid,
+          stockQuantity: el.stockQuantity,
+          actualStockQuantity: quantity[el.itemName],
+          note: note,
+        };
+        if (trx === "Audit") {
+          transactionRequest(trx, el.id, dataAudit);
+        } else {
+          transactionRequest(trx, el.id, data);
+        }
       });
     } catch (err) {
       setError(err);
