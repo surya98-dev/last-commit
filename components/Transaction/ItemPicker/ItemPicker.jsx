@@ -1,6 +1,7 @@
 import React from "react";
 import { SearchIcon } from "@heroicons/react/outline";
 import { ItemTransactionList } from "../..";
+import Link from "next/link";
 
 const ItemPicker = ({
   items,
@@ -13,9 +14,9 @@ const ItemPicker = ({
   }
 
   return (
-    <div className={`flex flex-col space-y-4 rows-span-3`}>
+    <div className={`flex flex-col rows-span-3`}>
       <p className="text-lg font-semibold my-2 ">Select Item(s)</p>
-      <div className="shadow flex">
+      <div className="shadow flex items-start mb-4">
         <input
           className="w-full rounded p-2"
           type="text"
@@ -37,9 +38,9 @@ const ItemPicker = ({
           <div className="">
             <p className="text-gray-500 text-center ">
               You don't have item in your inventory, start adding them{" "}
-              <a href="" className="text-blue-600 italic">
-                here
-              </a>
+              <Link href="/item-list">
+                <a className="text-blue-600 italic">here</a>
+              </Link>
             </p>
           </div>
         ) : (

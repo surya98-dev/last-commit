@@ -1,8 +1,10 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { useHistory } from "react-router-dom";
 import Link from "next/link";
+import Image from "next/image";
+import LogoHorizontal from "../../public/images/logo-horizontal-white.svg";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -10,6 +12,11 @@ function classNames(...classes) {
 
 export default function Navbar({ isAuthenticated, handleLogout }) {
   const history = useHistory();
+  const [current, setCurrent] = useState();
+
+  useEffect(() => {
+    setCurrent(window.location.pathname);
+  }, [window.location.pathname]);
   const publicNav = [
     {
       name: "Register",
@@ -29,54 +36,58 @@ export default function Navbar({ isAuthenticated, handleLogout }) {
     },
     {
       name: "Stock In",
-      link: "/transaction?trx=stock-in",
+      link: "/transaction/stock-in",
     },
     {
       name: "Stock Out",
-      link: "/transaction?trx=stock-out",
+      link: "/transaction/stock-out",
     },
     {
       name: "Audit",
-      link: "/transaction?trx=audit",
+      link: "/transaction/audit",
     },
   ];
 
   return (
-    <Disclosure as="nav" className="bg-dongker">
+    <Disclosure as="nav" className="bg-dongker w-full h-16 fixed ">
       <>
-        <div className="max-w-7xl mx-auto   ">
+        <div className="max-w-7xl mx-auto bg-dongker ">
           <div className="relative flex items-center justify-between h-16">
             {/* Mobile menu button*/}
-            <img
-              src={"images/logo-vertical-white.svg"}
+            <Image
+              src={LogoHorizontal}
               onClick={() => {
                 history.push("/");
               }}
-              className="w-32 absolute cursor-pointer"
+              width="128"
+              className=" absolute cursor-pointer"
               alt=""
             />
             <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-center">
-              <div className="flex-shrink-0 flex items-center">
-                {/* <img
+              {/* <div className="flex-shrink-0 flex items-center"> */}
+              {/* <img
                     className="block lg:hidden h-8 w-auto"
                     src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
                     alt="Workflow"
                   /> */}
-              </div>
+              {/* </div> */}
 
-              <div className="hidden sm:block sm:ml-6">
+              <div className="hidden sm:block relative right-5 ">
                 <div className="flex space-x-4">
-                  <div className="w-28"></div>
+                  {/* <div className="w-28"></div> */}
                   {isAuthenticated &&
                     authNav.map((item, index) => (
-                      <Link
-                        key={index}
-                        href={item.link}
-                        className={classNames(
-                          "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ",
-                        )}
-                      >
-                        {item.name}
+                      <Link key={index} href={item.link}>
+                        <a
+                          className={classNames(
+                            item.link === current
+                              ? "bg-gray-900 text-white"
+                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                            " px-3 py-2 rounded-md text-sm font-medium ",
+                          )}
+                        >
+                          {item.name}
+                        </a>
                       </Link>
                     ))}
                 </div>
@@ -98,7 +109,7 @@ export default function Navbar({ isAuthenticated, handleLogout }) {
                     <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                       <span className="sr-only">Open user menu</span>
                       <img
-                        className="h-8 w-8 rounded-full"
+                        className="h-8 w-8 mr-2 rounded-full"
                         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                         alt=""
                       />
@@ -114,7 +125,7 @@ export default function Navbar({ isAuthenticated, handleLogout }) {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <Menu.Item>
+                      <Menu.Item as="div">
                         {/* {({ active }) => (
                             <a
                               href="#"
@@ -126,11 +137,14 @@ export default function Navbar({ isAuthenticated, handleLogout }) {
                               Your Profile
                             </a>
                           )} */}
-                        <Link
-                          href="/update-profile"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        >
-                          Update Profile
+                        <Link href="/update-profile">
+                          <a
+                            className={classNames(
+                              "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100",
+                            )}
+                          >
+                            Update Profile
+                          </a>
                         </Link>
                       </Menu.Item>
 
@@ -146,12 +160,15 @@ export default function Navbar({ isAuthenticated, handleLogout }) {
                               Sign out
                             </a>
                           )} */}
-                        <Link
-                          onClick={handleLogout}
-                          href="/"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        >
-                          Sign out
+                        <Link href="/">
+                          <a
+                            className={classNames(
+                              "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100",
+                            )}
+                            onClick={handleLogout}
+                          >
+                            Sign out
+                          </a>
                         </Link>
                       </Menu.Item>
                     </Menu.Items>
@@ -160,14 +177,17 @@ export default function Navbar({ isAuthenticated, handleLogout }) {
               ) : (
                 publicNav.map((item, index) => {
                   return (
-                    <Link
-                      key={index}
-                      href={item.link}
-                      className={classNames(
-                        "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ",
-                      )}
-                    >
-                      {item.name}
+                    <Link key={index} href={item.link}>
+                      <a
+                        className={classNames(
+                          item.link === current
+                            ? "bg-gray-900 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          " px-3 py-2 rounded-md text-sm font-medium ",
+                        )}
+                      >
+                        {item.name}
+                      </a>
                     </Link>
                   );
                 })
