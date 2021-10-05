@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
     });
   }, []);
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser?.uid) {
       api
         .get(`/user/${currentUser.uid}`, {
           headers: {
@@ -94,10 +94,9 @@ export const AuthProvider = ({ children }) => {
     warehouseId,
   };
 
-  if (loading) return <LoadingPage />;
-
   return (
     <AuthContext.Provider value={value}>
+      {loading && <LoadingPage />}
       {!loading && children}
     </AuthContext.Provider>
   );
