@@ -1,14 +1,16 @@
 import React from 'react';
 import ImageOne from '../../../public/images/image4.png';
 import Link from "next/link";
+import Image from "next/image";
+
 
 const Content = () => {
   return (
 
-    <div className='relative grid grid-cols-2 my-32 pt-28'>
+    <div className='relative grid grid-cols-2  pt-28'>
 
       <div className="pr-4 ml-48 max-w-prose">
-        <img src={ImageOne} alt='' className='' />
+        <Image src={ImageOne} alt='' className='' />
       </div>
       <div className='mt-16 ml-20 text-left gap-y-2'>
         <span className='text-2xl mb-2 tracking-wide'>Multi Purpose Inventory</span>
@@ -17,7 +19,9 @@ const Content = () => {
           time to handle. <br /> Our value is to bring simple and extraordinary management<br />
           system for you.</h1>
         <div className="flex text-center mt-4 relative">
-          <Link to='/' className='rounded-full py-3 px-6 bg-yellow w-40 tracking-wider hover:bg-orange transform hover:scale-110'>Register</Link>
+        <button className="rounded-full py-3 px-6 bg-orange w-40 tracking-wider hover:bg-btn transform hover:scale-110">
+                <Link href="/register"> Register </Link>
+              </button>
         </div>
       </div>
     </div>

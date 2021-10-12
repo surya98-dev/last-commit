@@ -1,12 +1,14 @@
 import React from 'react';
-import PhotoFive from "../../../public/images/logo-vertical-white.svg"
+import PhotoFive from "../../../public/images/logo-horizontal-white.svg"
+import Image from "next/image";
 
 const Footer = () => {
   return (
-    <div className="bg-grey flex justify-center mt-20 md:bg-fixed">
-      <div className="relative">
-        <img src={PhotoFive} className="h-28 ml-36 w-auto" alt="" />
-        <div className=" justify-center flex gap-10 h-2">
+    <div className="bg-dongker grid grid-rows-3 h-40 justify-items-center mt-20 md:bg-fixed">
+      <div className="h-24 flex w-48 items-centetr">
+        <Image src={PhotoFive} className="h-28 ml-36 w-auto" alt="" />
+        </div>
+        <div className=" justify-center flex h-28">
           <div className="flex flex-row space-x-8 items-center justify-between">
             <a href="/">
               <svg className="w-4" viewBox="0 0 6 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -31,7 +33,6 @@ const Footer = () => {
           <span>Copyright © 2021 Goodang Inc Developer. All Rights Reserved</span>
         </div>
       </div>
-    </div>
   );
 };
 

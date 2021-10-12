@@ -1,5 +1,6 @@
 import React from "react";
 import PhotoFour from "../../../public/images/image8.png";
+import Image from "next/image";
 
 const FreeTrialLayout = () => {
     return (
@@ -23,7 +24,7 @@ const FreeTrialLayout = () => {
                     <span className="">tidying up your database</span><br />
                     <span className="">add up to 900 items and categories</span>
                 </div>
-                <img src={PhotoFour} className="max-w-prose md:w-full" alt="" />
+                <Image src={PhotoFour} className="max-w-prose md:w-full" alt="" />
             </div>
         </div>
     );
